@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package qrb.contract.sensor.v1;
+
+import "qrb/contract/common/v1/header.proto";
+import "qrb/contract/geometry/v1/quaternion.proto";
+import "qrb/contract/geometry/v1/vector3.proto";
+
+// Mirrors sensor_msgs/Imu.
+message Imu {
+    qrb.contract.common.v1.Header       header                         = 1;
+    qrb.contract.geometry.v1.Quaternion orientation                    = 2;  // Orientation (x, y, z, w).
+    repeated double                     orientation_covariance         = 3;  // 9 elements, row-major 3x3; -1 at [0] if unknown.
+    qrb.contract.geometry.v1.Vector3    angular_velocity               = 4;  // Angular velocity in rad/s.
+    repeated double                     angular_velocity_covariance    = 5;  // 9 elements, row-major 3x3; -1 at [0] if unknown.
+    qrb.contract.geometry.v1.Vector3    linear_acceleration            = 6;  // Linear acceleration in m/s^2.
+    repeated double                     linear_acceleration_covariance = 7;  // 9 elements, row-major 3x3; -1 at [0] if unknown.
+}

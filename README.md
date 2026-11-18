@@ -30,6 +30,7 @@ qrb_contracts/
 │       ├── Navigation/
 │       │   └── OdometryDescriptor.hpp         # OdometryDescriptor
 │       ├── Sensor/
+│       │   ├── ImuDescriptor.hpp              # ImuDescriptor
 │       │   └── PointCloudDescriptor.hpp       # PointCloudDescriptor
 │       └── Vision/
 │           └── ObjectDetectionDescriptor.hpp  # ObjectDetectionDescriptor
@@ -55,6 +56,7 @@ qrb_contracts/
 │       ├── tf2/v1/
 │       │   └── tf_message.proto
 │       ├── sensor/v1/
+│       │   ├── imu.proto
 │       │   ├── point_field.proto
 │       │   └── point_cloud2.proto
 │       └── vision/v1/
@@ -78,6 +80,7 @@ QC::Memory::QCBufferDescriptorBase_t
 └── QC::Memory::BufferDescriptor_t
     ├── QRB::Memory::PoseDescriptor_t          (Geometry/PoseDescriptor.hpp)
     ├── QRB::Memory::OdometryDescriptor_t      (Navigation/OdometryDescriptor.hpp)
+    ├── QRB::Memory::ImuDescriptor_t           (Sensor/ImuDescriptor.hpp)
     ├── QRB::Memory::PointCloudDescriptor_t    (Sensor/PointCloudDescriptor.hpp)
     └── QRB::Memory::ObjectDetectionDescriptor_t  (Vision/ObjectDetectionDescriptor.hpp)
 ```
@@ -101,6 +104,11 @@ Mirrors `geometry_msgs/PoseWithCovarianceStamped`. Carries a single stamped
 #### `OdometryDescriptor_t`
 Mirrors `nav_msgs/Odometry`. Carries the estimated pose (in `frameId`) and
 velocity (in `childFrameId`), each with a 6×6 covariance matrix.
+
+#### `ImuDescriptor_t`
+Mirrors `sensor_msgs/Imu`. Carries a single IMU sample: the orientation
+quaternion, the angular velocity, and the linear acceleration. Each of the
+last three has a row-major 3×3 covariance matrix. Following the ROS convention, `covariance[0] == -1` means covariance is unknown.
 
 #### `PointCloudDescriptor_t`
 Mirrors `sensor_msgs/PointCloud2`. The raw point data is stored in the DMA
@@ -163,6 +171,7 @@ code.
 | `geometry_msgs/TwistStamped` | `geometry/v1/twist_stamped.proto` |
 | `nav_msgs/Odometry` | `nav/v1/odometry.proto` |
 | `sensor_msgs/PointField` | `sensor/v1/point_field.proto` |
+| `sensor_msgs/Imu` | `sensor/v1/imu.proto` |
 | `sensor_msgs/PointCloud2` | `sensor/v1/point_cloud2.proto` |
 | `vision_msgs/ObjectHypothesis` | `vision/v1/object_hypothesis.proto` |
 | `vision_msgs/ObjectHypothesisWithPose` | `vision/v1/object_hypothesis_with_pose.proto` |
